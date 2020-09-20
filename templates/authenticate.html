@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<script src="{{ url_for('static', filename='authenticate.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='authenticate.css') }}">
+
+<body>
+
+<h1>Please Sign In</h1>
+
+<form>
+    <label for="username">Username</label>
+    <input type="text" id="username">
+    <label for="password">Password</label>
+    <input type="text" id="password">
+</form>
+
+<button id="skysigninbuton" onclick="submitclicked()">Submit</button>
+
+</body>
+</html>
