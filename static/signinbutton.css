@@ -1,0 +1,23 @@
+body {
+  background-color: rgba(150, 150, 150, 0.6);
+}
+#skysigninbuton {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 5px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+
+
+#skysigninbuton:hover {
+  background-color: rgba(134, 175, 76, 0.75); /* Green */
+  color: white;
+}
+/*h1, h2, p {*/
+/*  color: white;*/
+/*}*/

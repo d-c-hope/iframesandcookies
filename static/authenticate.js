@@ -16,6 +16,7 @@ function submitclicked(el) {
 }
 
 function onDone() {
+    // window.location.href = "https://myskyid.mysky.com/signin";
     window.location.href = "https://myskyid.mysky.com/signin";
 }
 

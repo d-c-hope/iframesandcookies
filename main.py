@@ -14,6 +14,10 @@ app = Flask(__name__)
 def sports(name=None):
     return render_template('sportsouter.html')
 
+@app.route('/sportst')
+def sportstransition(name=None):
+    return render_template('sportsoutertransition.html')
+
 @app.route('/home')
 def home(name=None):
     return render_template('outer.html')
@@ -23,7 +27,14 @@ def home(name=None):
 @app.route('/signin/')
 def signin(name=None):
     encrypstate = request.cookies.get('encrypstate')
+    print("cookies are: {}".format(request.cookies))
     return render_template('signin.html', encrypstate=encrypstate)
+
+@app.route('/signinbutton')
+def signinbutton(name=None):
+    encrypstate = request.cookies.get('encrypstate')
+    print("cookies are: {}".format(request.cookies))
+    return render_template('signinbutton.html', encrypstate=encrypstate)
 
 @app.route('/signincompleted')
 def signincompleted(name=None):
@@ -42,6 +53,7 @@ def authcreds(name=None):
         "authenticated" : True
     }
     resp = make_response(r)
+    # resp.set_cookie('encrypstate', 'authndone', samesite="Strict")
     resp.set_cookie('encrypstate', 'authndone')
     return resp
 

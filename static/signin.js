@@ -31,6 +31,7 @@ function receiveMessage(event) {
 
 
 function skysigninclicked(element) {
+    // window.location.href = "https://myskyid.mysky.com/authenticate";
     window.location.href = "https://myskyid.mysky.com/authenticate";
 }
 
@@ -43,6 +44,11 @@ function checkAccess() {
     promise.then(
         function (hasAccess) {
             console.log("Has access ")
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {};
+
+            xhttp.open("GET", "", true);
+            xhttp.send();
         },
         function (reason) {
             console.log("Failed to get access " + reason)
@@ -51,7 +57,29 @@ function checkAccess() {
 }
 
 function accessRequest(element) {
+
+  var promise = document.requestStorageAccess();
+  promise.then(
+    function () {
+      console.log("Storage access was granted");
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+          // if (this.readyState == 4 && this.status == 200) {
+          //   onDone();
+          // }
+          location.reload()
+      };
+
+      xhttp.open("GET", "", true);
+      xhttp.send();
+    },
+    function () {
+      console.log("Storage access was denied.");
+    }
+  );
+
 }
+
 
 window.addEventListener("message", receiveMessage, false);
 
