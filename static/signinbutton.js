@@ -77,7 +77,8 @@ function accessRequest(element) {
                   console.log("Post in sign in button " + i)
                 frames[i].postMessage({"event":"signinclicked", "data" : {"email": email}}, "https://myskyid.myskysports.com");
               }
-
+              // so it can respond, don't need to pass it the email necessarily
+              window.parent.postMessage({"event":"signinclicked", "data" : {"email": email}}, "*");
           }
       };
 

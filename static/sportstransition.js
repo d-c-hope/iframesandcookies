@@ -40,6 +40,7 @@ function receiveMessage(event) {
 
 
 function skysigninclicked() {
+    console.log("sports transition window localstorage email is " + localStorage.getItem("email"))
     accessRequest()
     // window.location.href = "https://myskyid.mysky.com/authenticate";
     // window.location.href = "https://myskyid.mysky.com/authenticate";
@@ -47,19 +48,21 @@ function skysigninclicked() {
 }
 
 window.onload = function() {
+    console.log("sports transition window localstorage email is " + localStorage.getItem("email"))
     checkAccess();
 }
 
+// does do a lot, think it was more useful before cookies were always blocked by default
 function checkAccess() {
     var promise = document.hasStorageAccess();
     promise.then(
         function (hasAccess) {
             console.log("Has access ")
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {};
-
-            xhttp.open("GET", "", true);
-            xhttp.send();
+            // var xhttp = new XMLHttpRequest();
+            // xhttp.onreadystatechange = function() {};
+            //
+            // xhttp.open("GET", "", true);
+            // xhttp.send();
         },
         function (reason) {
             console.log("Failed to get access " + reason)
@@ -72,7 +75,7 @@ function accessRequest() {
   var promise = document.requestStorageAccess();
   promise.then(
     function () {
-      console.log("Storage access was granted");
+      console.log("sportstransition.js: Storage access was granted");
       document.getElementById('iframeparentdiv').innerHTML =  signiniframe;
       document.getElementById('buttoniframe').innerHTML =  null;
       // var xhttp = new XMLHttpRequest();

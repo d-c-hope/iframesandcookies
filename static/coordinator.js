@@ -22,7 +22,20 @@
 // }
 
 function receiveMessage(event) {
-    console.log("event in coordinator" + event);
+    console.log("coordinator iframe localstorage email is " + localStorage.getItem("email"))
+    var eventdata  = event.data
+    if (eventdata.event == "signinclicked") {
+        console.log("event in coordinator" + eventdata.data.email);
+        localStorage.setItem("email", eventdata.data.email)
+    } else if (eventdata.event == "signindatarequest") {
+        console.log("request for sign in data");
+        var email = localStorage.getItem("email")
+        var frames = window.parent.frames;
+        for (let i = 0; i < frames.length; i++) {
+              console.log("Post in sign in button " + i)
+            frames[i].postMessage({"event":"signindataupdate", "data" : {"email": email}}, "https://myskyid.mysky.com");
+        }
+    }
     // if (event.data === "complete") {
     //     window.location = "/signincompleted";
     // }

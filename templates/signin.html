@@ -9,11 +9,16 @@
 <h1>Embedded Sign In</h1>
 
 <p>Sign in with sky</p>
-<button id="skysigninbuton" onclick="skysigninclicked()">Sign-in</button>
+<form>
+    <label for="username">Username</label>
+    <input type="text" id="username">
+    <button id="skysigninbuton" onclick="skysigninclicked()">Continue</button>
+</form>
+
 <!--<a href="http://testsocialsignin.com:5000/socialsignin" onClick="return popup(this, 'notes')">my popup</a>-->
 
 <p>Sign in with facebook</p>
-<a href="http://testsocialsignin.com:5000/socialsignin" onClick="return popup(this, 'notes')">my popup</a>
+<a href="http://testsocialsignin.com:5000/socialsignin" onClick="return popup(this, 'notes')">FB Sign-in</a>
 <p>Cookie State is: {{ encrypstate }}</p>
 <button id="accessButton" onclick="accessRequest()">Request access</button>
 </body>

@@ -25,6 +25,10 @@ function receiveMessage(event) {
     console.log("event" + event);
     if (event.data === "complete") {
         window.location = "/signincompleted";
+    } else if (event.data.event === "signindataupdate") {
+        var email = event.data.data.email
+        console.log("signin data update in signin.js, email is " + email)
+        document.getElementById("username").value = email;
     }
     return;
 }
@@ -37,6 +41,7 @@ function skysigninclicked(element) {
 
 window.onload = function() {
     checkAccess();
+    requestAnyState();
 }
 
 function checkAccess() {
@@ -78,6 +83,17 @@ function accessRequest(element) {
     }
   );
 
+}
+
+function requestAnyState() {
+    frames = window.parent.frames;
+    for (let i = 0; i < frames.length; i++) {
+        // console.log("Post in sign in button " + i)
+        console.log("signin.js requesting state")
+        frames[i].postMessage({"event":"signindatarequest", "data" : {}}, "https://myskyid.myskysports.com");
+    }
+
+    // window.parent.postMessage({"event":"signindatarequest", "data" : {}}, "https://myskyid.myskysports.com");
 }
 
 
