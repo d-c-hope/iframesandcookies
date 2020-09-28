@@ -22,6 +22,16 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /<base>/davidhope/De
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /Users/davidhope/Desktop/myskyid.key -out /Users/davidhope/Desktop/myskyid.crt 
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /Users/davidhope/Desktop/idmysportscom.key -out /Users/davidhope/Desktop/idmysportscom.crt
 
+Or to use config do:
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout mykey.pem -out mycert.pem -config ~/Desktop/cert_config.conf -extensions x509_ext
+
+Or now use the generate_certs.py script to genreate them. Should be run from top level and will make a tmp directory under that and put the certs in there.
+You should then search and replace (e.g. sed or in intellij with a copy of the nginx.conf file) so that the  <mypath> is replaced with the path to the tmp directory
+Note I could have templated this or scripted but not got round to it 
+
 Hosts file:
 127.0.0.1       localhost testsocialsignin.com myskysports.com myskyid.mysky.com mysky.com myskyid.com myskyid.mskysp
 orts.com
+
+
+/usr/local/nginx/sbin/nginx -s reload
