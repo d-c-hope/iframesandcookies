@@ -29,8 +29,9 @@ var signiniframe = '<iframe src = "https://myskyid.mysky.com/signin" width = "55
 
 function receiveMessage(event) {
     console.log("event" + event);
-    if (event.data === "signinclicked") {
+    if (event.data.event === "signinclicked") {
         console.log("Sign in clicked")
+        console.log("email in sportstransition was " + event.data.data.email)
         skysigninclicked()
         // window.location = "/signincompleted";
     }

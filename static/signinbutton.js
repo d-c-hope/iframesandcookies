@@ -33,7 +33,8 @@ function receiveMessage(event) {
 function skysigninclicked(element) {
     // window.location.href = "https://myskyid.mysky.com/authenticate";
     // window.location.href = "https://myskyid.mysky.com/authenticate";
-    window.parent.postMessage("signinclicked", "*");
+    accessRequest()
+    // window.parent.postMessage("signinclicked", "*");
 }
 
 window.onload = function() {
@@ -63,12 +64,25 @@ function accessRequest(element) {
   promise.then(
     function () {
       console.log("Storage access was granted");
-      // var xhttp = new XMLHttpRequest();
-      // xhttp.onreadystatechange = function() {
-      // };
-      //
-      // xhttp.open("GET", "", true);
-      // xhttp.send();
+      console.log("posting message")
+
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+              var email = JSON.parse(this.response).email
+              console.log("email was " + email)
+              // var ifr = window.parent.document.getElementById('coordinator');
+              var frames = window.parent.frames;
+              for (let i = 0; i < frames.length; i++) {
+                  console.log("Post in sign in button " + i)
+                frames[i].postMessage({"event":"signinclicked", "data" : {"email": email}}, "https://myskyid.myskysports.com");
+              }
+
+          }
+      };
+
+      xhttp.open("GET", "/signinbuttonclicked", true);
+      xhttp.send();
     },
     function () {
       console.log("Storage access was denied.");

@@ -19,3 +19,9 @@ Generate keys:
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /<base>/myskycom.key -out /Users/davidhope/Desktop/myskycom.crt
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /<base>/davidhope/Desktop/idmyskycom.key -out /Users/davidhope/Desktop/idmyskycom.crt
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /<base>/davidhope/Desktop/sportsskycom.key -out /Users/davidhope/Desktop/sportsskycom.crt
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /Users/davidhope/Desktop/myskyid.key -out /Users/davidhope/Desktop/myskyid.crt 
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /Users/davidhope/Desktop/idmysportscom.key -out /Users/davidhope/Desktop/idmysportscom.crt
+
+Hosts file:
+127.0.0.1       localhost testsocialsignin.com myskysports.com myskyid.mysky.com mysky.com myskyid.com myskyid.mskysp
+orts.com

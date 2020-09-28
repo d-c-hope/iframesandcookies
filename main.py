@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask import make_response
 from flask import request
+from flask import jsonify
 
 
 app = Flask(__name__)
@@ -36,6 +37,17 @@ def signinbutton(name=None):
     print("cookies are: {}".format(request.cookies))
     return render_template('signinbutton.html', encrypstate=encrypstate)
 
+@app.route('/signinbuttonclicked')
+def signinbuttonclicked(name=None):
+    # encrypstate = request.cookies.get('encrypstate')
+    email = request.cookies.get('email')
+    print("cookies are: {}".format(request.cookies))
+
+    r = {"email" : email}
+    resp = make_response(jsonify(r), 200)
+
+    return r
+
 @app.route('/signincompleted')
 def signincompleted(name=None):
     return render_template('signincompleted.html')
@@ -48,14 +60,25 @@ def authenticate(name=None):
 # for submitting creds
 @app.route('/authenticate/authcreds', methods=['POST'])
 def authcreds(name=None):
-    print("authenticating")
+    print("data is : {}".format(request.data))
+    j = request.get_json()
+    print("authenticating, email is {}".format(j['email']))
     r = {
-        "authenticated" : True
+        "authenticated" : True,
+        "email" : j['email']
     }
-    resp = make_response(r)
+    print("r is {}".format(r))
+    # resp = jsonify(r)
+    resp = make_response(jsonify(r), 200)
+    # resp = make_response(r)
     # resp.set_cookie('encrypstate', 'authndone', samesite="Strict")
     resp.set_cookie('encrypstate', 'authndone')
+    resp.set_cookie('email', j['email'])
     return resp
+
+@app.route('/coordinator')
+def coordinator(name=None):
+    return render_template('coordinator.html')
 
 # domain 3
 @app.route('/socialsignin')
