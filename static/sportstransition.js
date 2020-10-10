@@ -27,13 +27,18 @@ var signiniframe = '<iframe src = "https://myskyid.mysky.com/signin" width = "55
          Sorry your browser does not support inline frames. \
       </iframe>'
 
+
 function receiveMessage(event) {
-    console.log("event" + event);
+    console.log("event" + event + "event name is " + event.data.event);
     if (event.data.event === "signinclicked") {
         console.log("Sign in clicked")
         console.log("email in sportstransition was " + event.data.data.email)
         skysigninclicked()
         // window.location = "/signincompleted";
+    } else if (event.data.event === "signincomplete") {
+        console.log("received signin complete from coodinator");
+        document.getElementById('iframeparentdiv').innerHTML =  null;
+        document.getElementById('isSignedIn').textContent =  "Signed in";
     }
     return;
 }

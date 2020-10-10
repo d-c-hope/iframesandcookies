@@ -36,6 +36,7 @@ function receiveMessage(event) {
 
 function skysigninclicked(element) {
     // window.location.href = "https://myskyid.mysky.com/authenticate";
+    localStorage.setItem("entered_email", document.getElementById("username").value)
     window.location.href = "https://myskyid.mysky.com/authenticate";
 }
 

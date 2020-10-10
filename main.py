@@ -62,7 +62,7 @@ def authenticate(name=None):
 def authcreds(name=None):
     print("data is : {}".format(request.data))
     j = request.get_json()
-    print("authenticating, email is {}".format(j['email']))
+    print("authenticating, email is {} pw is {}".format(j['email'], j['password']))
     r = {
         "authenticated" : True,
         "email" : j['email']
@@ -79,6 +79,17 @@ def authcreds(name=None):
 @app.route('/coordinator')
 def coordinator(name=None):
     return render_template('coordinator.html')
+
+@app.route('/coordinatorcookie', methods=['POST'])
+def coordinatorcookie(name=None):
+    j = request.get_json()
+    print(j)
+    r = {}
+    resp = make_response(jsonify(r), 200)
+    print("coord cookie resp is {}".format(r))
+    resp.set_cookie('signinstate', 'signindone')
+
+    return resp
 
 # domain 3
 @app.route('/socialsignin')

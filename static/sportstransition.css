@@ -7,6 +7,10 @@ h1, h2, p {
   color: white;
 }
 
+#isSignedIn {
+  color: white;
+}
+
 #iframeparentdiv {
   height: 200px
 }

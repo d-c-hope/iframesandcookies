@@ -1,18 +1,21 @@
 
 
 function submitclicked(el) {
-    console.log("Submit button clicked")
+    console.log("Password submit button clicked")
     var xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        var email = JSON.parse(this.response).email
-        console.log("email was " + email)
-      onDone(email);
-    }
+        if (this.readyState == 4 && this.status == 200) {
+            var email = JSON.parse(this.response).email
+            console.log("authenticate successful, confirmed email was " + email)
+            onDone(email);
+        }
   };
+    var email = localStorage.getItem("entered_email");
+    var password = document.getElementById("password").value
     data = {
-        "email" :  document.getElementById("username").value
+        "email" :  email,
+        "password" :  password
     }
 
     xhttp.open("POST", "authcreds", true);
@@ -23,8 +26,16 @@ function submitclicked(el) {
 
 function onDone(email) {
     // window.location.href = "https://myskyid.mysky.com/signin";
+
+    frames = window.parent.frames;
+    for (let i = 0; i < frames.length; i++) {
+        // console.log("Post in sign in button " + i)
+        console.log("authenticate js onDone sending")
+        frames[i].postMessage({"event":"cosignincomplete", "data" : {}}, "https://myskyid.myskysports.com");
+    }
+
     window.parent.postMessage({"email":email}, "*")
-    window.location.href = "https://myskyid.mysky.com/signin";
+    // window.location.href = "https://myskyid.mysky.com/signin";
 }
 
 

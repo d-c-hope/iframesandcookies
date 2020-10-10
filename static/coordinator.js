@@ -24,6 +24,8 @@
 function receiveMessage(event) {
     console.log("coordinator iframe localstorage email is " + localStorage.getItem("email"))
     var eventdata  = event.data
+    console.log("event name is: " + eventdata.event)
+
     if (eventdata.event == "signinclicked") {
         console.log("event in coordinator" + eventdata.data.email);
         localStorage.setItem("email", eventdata.data.email)
@@ -35,6 +37,16 @@ function receiveMessage(event) {
               console.log("Post in sign in button " + i)
             frames[i].postMessage({"event":"signindataupdate", "data" : {"email": email}}, "https://myskyid.mysky.com");
         }
+    } else if (eventdata.event == "cosignincomplete") {
+        console.log("coordinator sign in complete handler");
+        setcookieonrelayingparty("todo")
+        // var email = localStorage.getItem("email")
+        // window.parent.postMessage({"event":"signincomplete", "data" : {"email": email}}, "https://myskysports.com");
+        // var frames = window.parent.frames;
+        // for (let i = 0; i < frames.length; i++) {
+        //       // console.log("Post in sign in button " + i)
+        //     frames[i].postMessage({"event":"signincomplete", "data" : {"email": email}}, "https://myskysports.com");
+        // }
     }
     // if (event.data === "complete") {
     //     window.location = "/signincompleted";
@@ -42,6 +54,32 @@ function receiveMessage(event) {
     // return;
 }
 
+function onDone(email) {
+    window.parent.postMessage({"event":"signincomplete", "data" : {"email": email}}, "https://myskysports.com");
+}
+
+function setcookieonrelayingparty(signinproof) {
+    var xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var email = JSON.parse(this.response).email
+            console.log("coor: authenticate successful, confirmed email was " + email)
+            onDone(email);
+        }
+    };
+
+    // var email = localStorage.getItem("entered_email");
+    // var password = document.getElementById("password").value
+    data = {
+        "signinproof" : signinproof,
+    }
+
+    xhttp.open("POST", "coordinatorcookie", true);
+    xhttp.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    xhttp.send(JSON.stringify(data));
+    return false;
+}
 
 // function skysigninclicked(element) {
 //     // window.location.href = "https://myskyid.mysky.com/authenticate";
