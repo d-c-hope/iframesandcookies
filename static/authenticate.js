@@ -18,7 +18,7 @@ function submitclicked(el) {
         "password" :  password
     }
 
-    xhttp.open("POST", "authcreds", true);
+    xhttp.open("POST", "authenticate/authcreds", true);
     xhttp.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
     xhttp.send(JSON.stringify(data));
     return false;

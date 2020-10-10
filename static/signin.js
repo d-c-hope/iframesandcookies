@@ -34,15 +34,31 @@ function receiveMessage(event) {
 }
 
 
+
 function skysigninclicked(element) {
-    // window.location.href = "https://myskyid.mysky.com/authenticate";
+    // window.location.href = "authenticate";
     localStorage.setItem("entered_email", document.getElementById("username").value)
     window.location.href = "https://myskyid.mysky.com/authenticate";
+    // console.log("sign in clicked");
+    // window.location.href = "https://bbc.co.uk";
+    // return false;
 }
 
 window.onload = function() {
     checkAccess();
     requestAnyState();
+
+    function processForm(e) {
+       if (e.preventDefault) e.preventDefault();
+        skysigninclicked(e)
+        return false;
+    }
+    var form = document.getElementById('usernameform');
+    if (form.attachEvent) {
+        form.attachEvent("submit", processForm);
+    } else {
+        form.addEventListener("submit", processForm);
+    }
 }
 
 function checkAccess() {

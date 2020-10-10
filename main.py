@@ -25,7 +25,7 @@ def home(name=None):
 
 
 # signin domain 2
-@app.route('/signin/')
+@app.route('/signin')
 def signin(name=None):
     encrypstate = request.cookies.get('encrypstate')
     print("cookies are: {}".format(request.cookies))
@@ -53,7 +53,7 @@ def signincompleted(name=None):
     return render_template('signincompleted.html')
 
 #for authenticate html
-@app.route('/authenticate/')
+@app.route('/authenticate')
 def authenticate(name=None):
     return render_template('authenticate.html')
 
